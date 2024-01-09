@@ -33,7 +33,7 @@ app.use(express.static('public'));
 
 
 // SignUp endpoint
-app.post('/signup.html', async (req, res) => {
+app.post('/signup', async (req, res) => {
   const { user_id, password, confirm_password, user_type } = req.body;
 
   // Check if password and confirm_password match
@@ -65,7 +65,7 @@ app.post('/signup.html', async (req, res) => {
           return res.status(500).send('Internal Server Error');
         }
 
-        res.redirect('/login.html'); // Redirect to login page after successful signup
+        res.redirect('/login'); // Redirect to login page after successful signup
       });
     });
   } catch (error) {
@@ -76,7 +76,7 @@ app.post('/signup.html', async (req, res) => {
 
 
 // Login endpoint
-app.post('/login.html', (req, res) => {
+app.post('/login', (req, res) => {
   const { user_id, password } = req.body;
 
   // Check if user exists
@@ -98,7 +98,7 @@ app.post('/login.html', (req, res) => {
         }
 
         if (passwordMatch) {
-          res.redirect('/data.html'); // Redirect to data page after successful login
+          res.redirect('/data'); // Redirect to data page after successful login
         } else {
           res.status(401).send('Invalid credentials');
         }

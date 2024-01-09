@@ -33,7 +33,7 @@ app.use(express.static('public'));
 
 
 // SignUp endpoint
-app.post('/signup', async (req, res) => {
+app.post('http://192.168.25.29/signup', async (req, res) => {
   const { user_id, password, confirm_password, user_type } = req.body;
 
   // Check if password and confirm_password match
@@ -76,7 +76,7 @@ app.post('/signup', async (req, res) => {
 
 
 // Login endpoint
-app.post('/login', (req, res) => {
+app.post('http://192.168.25.29/login', (req, res) => {
   const { user_id, password } = req.body;
 
   // Check if user exists

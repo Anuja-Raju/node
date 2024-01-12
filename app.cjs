@@ -2,7 +2,7 @@ const express = require('express');
 const mysql = require('mysql');
 const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt');
-
+const cors = require("cors");
 const app = express();
 const port = 3000;
 
@@ -28,12 +28,12 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // Serve static files (HTML, CSS, etc.)
 app.use(express.static('public'));
-
+app.use(cors());
 
 
 
 // SignUp endpoint
-app.post('http://192.168.25.29/signup', async (req, res) => {
+app.post('/signup', async (req, res) => {
   const { user_id, password, confirm_password, user_type } = req.body;
 
   // Check if password and confirm_password match
@@ -76,7 +76,7 @@ app.post('http://192.168.25.29/signup', async (req, res) => {
 
 
 // Login endpoint
-app.post('http://192.168.25.29/login', (req, res) => {
+app.post('/login', (req, res) => {
   const { user_id, password } = req.body;
 
   // Check if user exists
@@ -156,3 +156,12 @@ process.on('unhandledRejection', (reason, promise) => {
 app.listen(port, () => {
   console.log(`Server listening on port ${port}`);
 });
+// Enable CORS with specific configuration
+const corsOptions = {
+  origin: 'http://192.168.25.29:4200', // Replace with your Angular app's domain
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  credentials: true, // Enable credentials (cookies, authorization headers, etc.)
+  optionsSuccessStatus: 204,
+};
+
+app.use(cors(corsOptions));
